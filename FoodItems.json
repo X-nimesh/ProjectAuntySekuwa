@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "Name": "Buff Sekuwa",
+    "Price": 40,
+    "category": "Sekuwa"
+  },
+  {
+    "id": 2,
+    "Name": "Chicken Sekuwa",
+    "Price": 60,
+    "category": "Sekuwa"
+  },
+  {
+    "id": 3,
+    "Name": "Pork Sekuwa",
+    "Price": 80,
+    "category": "Sekuwa"
+  },
+  {
+    "id": 4,
+    "Name": "Buff Sausage",
+    "Price": 40,
+    "category": "Others"
+  },
+  {
+    "id": 5,
+    "Name": "Chicken Sausage",
+    "Price": 50,
+    "category": "Others"
+  },
+  {
+    "id": 6,
+    "Name": "Fokso (Khasi)",
+    "Price": 100,
+    "category": "Others"
+  },
+  {
+    "id": 7,
+    "Name": "Cold Drinks",
+    "Price": 60,
+    "category": "Drinks"
+  },
+  {
+    "id": 8,
+    "Name": "Water",
+    "Price": 30,
+    "category": "Drinks"
+  }
+]
