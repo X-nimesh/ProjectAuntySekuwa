@@ -9,7 +9,6 @@ const Menu = ({ navigation }) => {
     return (
         <ScrollView >
             <View style={styles.container}>
-
                 <TitleBar title={'Menu'} />
                 <Sekuwa />
                 <OtherItems />

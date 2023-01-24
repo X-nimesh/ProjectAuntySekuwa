@@ -14,8 +14,8 @@ const Sekuwa = () => {
             <DataTable>
                 <DataTable.Header style={{ borderBottomWidth: 0 }}>
                     <DataTable.Title></DataTable.Title>
-                    <DataTable.Title numeric ><Text style={styles.title}> per stick</Text></DataTable.Title>
-                    <DataTable.Title numeric><Text style={styles.title}> per plate</Text></DataTable.Title>
+                    {/* <DataTable.Title numeric ><Text style={styles.title}> price</Text></DataTable.Title> */}
+                    {/* <DataTable.Title numeric><Text style={styles.title}> per plate</Text></DataTable.Title> */}
                 </DataTable.Header>
                 {Food.map((item, key) => {
                     console.log(item);
@@ -23,7 +23,7 @@ const Sekuwa = () => {
                         <DataTable.Row style={{ borderBottomWidth: 0 }} key={key}>
                             <DataTable.Cell ><Text style={styles.title}>{item.Name}</Text></DataTable.Cell>
                             <DataTable.Cell numeric><Text style={styles.price}>Rs.{item.Price}/-</Text></DataTable.Cell>
-                            <DataTable.Cell numeric ><Text style={styles.price}>Rs.{item.Price * 2}/-</Text></DataTable.Cell>
+                            {/* <DataTable.Cell numeric ><Text style={styles.price}>Rs.{item.Price * 2}/-</Text></DataTable.Cell> */}
                         </DataTable.Row>
                     )
                 })}

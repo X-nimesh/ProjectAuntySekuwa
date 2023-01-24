@@ -7,6 +7,7 @@ import Orders from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Card } from 'react-native-shadow-cards';
 const SideBar = () => {
     const navigation = useNavigation();
+    console.log(navigation.getState())
     // DBA800
     // const Drawer = createDrawerNavigator();
     return (
@@ -22,6 +23,14 @@ const SideBar = () => {
                             <HomeIcon name="home" size={25} color="white" />
                         </Text>
                         <Text style={styles.menuText}>HomePage</Text>
+                    </View>
+                </TouchableHighlight >
+                <TouchableHighlight onPress={() => navigation.navigate('CreateOrder')} style={styles.menuTop}>
+                    <View style={styles.menuItem}>
+                        <Text >
+                            <HomeIcon name="home" size={25} color="white" />
+                        </Text>
+                        <Text style={styles.menuText}>Create Order</Text>
                     </View>
                 </TouchableHighlight >
                 <TouchableHighlight onPress={() => navigation.navigate('Menu')} style={styles.menuTop}>

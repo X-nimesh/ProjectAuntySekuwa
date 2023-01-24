@@ -1,20 +1,28 @@
-[
-  {
-    "tokenId": 1,
-    "time": "2019-01-01 00:00:00",
-    "items": [
-      {
-        "id": 1,
-        "name": "sekuwa",
-        "quanitity": 2,
-        "rate": 100
-      },
-      {
-        "id": 1,
-        "name": "sekuwa",
-        "quanitity": 2,
-        "rate": 100
-      }
-    ]
-  }
-]
+{
+  "token": "2",
+  "name": "nimesh",
+  "phone": "987986",
+  "date": "2019-01-01",
+  "total_price": "500",
+  "orders": [
+    {
+      "tokenId": 1,
+      "date": "2019-01-01",
+      "time": "00:00:00",
+      "items": [
+        {
+          "id": 1,
+          "name": "sekuwa",
+          "quanitity": 2,
+          "rate": 100
+        },
+        {
+          "id": 1,
+          "name": "sekuwa",
+          "quanitity": 2,
+          "rate": 100
+        }
+      ]
+    }
+  ]
+}

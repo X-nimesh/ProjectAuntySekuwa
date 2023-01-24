@@ -1,48 +1,66 @@
 [
   {
     "id": 1,
-    "Name": "Buff Sekuwa",
+    "Name": "Buff Sekuwa (per pcs)",
     "Price": 40,
     "category": "Sekuwa"
   },
   {
     "id": 2,
-    "Name": "Chicken Sekuwa",
-    "Price": 60,
-    "category": "Sekuwa"
-  },
-  {
-    "id": 3,
-    "Name": "Pork Sekuwa",
+    "Name": "Buff Sekuwa (per plate)",
     "Price": 80,
     "category": "Sekuwa"
   },
   {
+    "id": 3,
+    "Name": "Chicken Sekuwa (per pcs)",
+    "Price": 60,
+    "category": "Sekuwa"
+  },
+  {
     "id": 4,
-    "Name": "Buff Sausage",
+    "Name": "Chicken Sekuwa (per plate)",
+    "Price": 120,
+    "category": "Sekuwa"
+  },
+  {
+    "id": 5,
+    "Name": "Pork Sekuwa (per pcs)",
+    "Price": 80,
+    "category": "Sekuwa"
+  },
+  {
+    "id": 6,
+    "Name": "Pork Sekuwa(per plate)",
+    "Price": 160,
+    "category": "Sekuwa"
+  },
+  {
+    "id": 7,
+    "Name": "Buff Sausage ",
     "Price": 40,
     "category": "Others"
   },
   {
-    "id": 5,
+    "id": 8,
     "Name": "Chicken Sausage",
     "Price": 50,
     "category": "Others"
   },
   {
-    "id": 6,
+    "id": 9,
     "Name": "Fokso (Khasi)",
     "Price": 100,
     "category": "Others"
   },
   {
-    "id": 7,
+    "id": 10,
     "Name": "Cold Drinks",
     "Price": 60,
     "category": "Drinks"
   },
   {
-    "id": 8,
+    "id": 11,
     "Name": "Water",
     "Price": 30,
     "category": "Drinks"
