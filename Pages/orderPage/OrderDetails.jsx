@@ -40,14 +40,6 @@ const OrderDetails = ({ navigation, route }) => {
         await AsyncStorage.setItem(`sales ${today}`, JSON.stringify(sales));
         await AsyncStorage.setItem(`orders ${today}`, JSON.stringify(orders));
         navigation.navigate('Orders');
-        return
-        console.log("************")
-        orders?.orders?.map((item, key) => {
-            if (item.token === order.token) {
-                item.status = "Paid";
-            }
-        })
-        await AsyncStorage.setItem(`orders ${today}`, JSON.stringify(orders));
     }
     return (
         <ScrollView style={{ backgroundColor: 'white', minHeight: '100%' }}>

@@ -18,16 +18,52 @@ const Sales = () => {
     const getMenu = async () => {
 
     }
+    // const getSales = async () => {
+    //     let itemsData = JSON.parse(await AsyncStorage.getItem(`menu`)) || [];
+    //     // console.log(items)
+    //     let price = 0;
+    //     setdata(itemsData);
+    //     let orders = JSON.parse(await AsyncStorage.getItem(`orders ${today}`)) || {};
+    //     let paidOrders = orders?.orders?.filter((order) => order.status === "Paid")
+    //     orders.orders = paidOrders;
+    //     let SalesNameP = []
+    //     paidOrders?.map((order) => {
+    //         let orderDetail = {};
+    //         orderDetail["Name"] = order.name;
+    //         orderDetail["total_price"] = order.total_price;
+    //         orderDetail["phone"] = order.phone;
+    //         SalesNameP.push(orderDetail);
+    //     })
+    //     setsalesReport(SalesNameP);
+    //     setorders(orders);
+    //     let SalesDetails = {}
+    //     orders?.orders?.map((order) => {
+    //         order.items.map((item) => {
+    //             let foodItem = itemsData?.find((food) => food.id === item.id)
+    //             SalesDetails[foodItem?.Name] = SalesDetails[foodItem?.Name] ? SalesDetails[foodItem?.Name] + item.quantity : item.quantity;
+    //             price += foodItem?.Price * item.quantity;
+    //             // console.log(SalesDetails)
+    //         })
+    //         order?.newItems?.map((item) => {
+    //             let foodItem = itemsData?.find((food) => food.id === item.id)
+    //             SalesDetails[foodItem?.Name] = SalesDetails[foodItem?.Name] ? SalesDetails[foodItem?.Name] + item.quantity : item.quantity;
+    //             price += foodItem?.Price * item.quantity;
+    //         })
+    //     })
+    //     // console.log(SalesDetails);
+    //     settotalSales(price);
+    //     setsales(SalesDetails);
+    // }
     const getSales = async () => {
         let itemsData = JSON.parse(await AsyncStorage.getItem(`menu`)) || [];
         // console.log(items)
         let price = 0;
         setdata(itemsData);
-        let orders = JSON.parse(await AsyncStorage.getItem(`orders ${today}`)) || {};
-        let paidOrders = orders?.orders?.filter((order) => order.status === "Paid")
-        orders.orders = paidOrders;
+        let orders = JSON.parse(await AsyncStorage.getItem(`sales ${today}`)) || [];
+        // let paidOrders = orders?.orders?.filter((order) => order.status === "Paid")
+        // orders.orders = paidOrders;
         let SalesNameP = []
-        paidOrders?.map((order) => {
+        orders?.map((order) => {
             let orderDetail = {};
             orderDetail["Name"] = order.name;
             orderDetail["total_price"] = order.total_price;
@@ -35,9 +71,8 @@ const Sales = () => {
             SalesNameP.push(orderDetail);
         })
         setsalesReport(SalesNameP);
-        setorders(orders);
         let SalesDetails = {}
-        orders?.orders?.map((order) => {
+        orders?.map((order) => {
             order.items.map((item) => {
                 let foodItem = itemsData?.find((food) => food.id === item.id)
                 SalesDetails[foodItem?.Name] = SalesDetails[foodItem?.Name] ? SalesDetails[foodItem?.Name] + item.quantity : item.quantity;
@@ -50,6 +85,7 @@ const Sales = () => {
                 price += foodItem?.Price * item.quantity;
             })
         })
+        setorders(orders);
         // console.log(SalesDetails);
         settotalSales(price);
         setsales(SalesDetails);
