@@ -1,19 +1,24 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment/moment';
 import React, { useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
-import data from '../../FoodItems.json';
+import FetchMenu from '../../utils/FetchMenu';
+// import data from '../../FoodItems.json';
+import { useFocusEffect } from '@react-navigation/native';
 
-const Order = ({ order, addItem, complete }) => {
+
+const Order = ({ order, addItem, complete, data }) => {
     const [newItems, setnewItems] = useState(false);
     let orderTime = moment(order.time).format('hh:mm A');
+
     return (
         <Pressable style={[styles.Item, (order.newItems) && styles.newItem]}>
             <View style={{ flexDirection: 'row', alignItems: "flex-start", justifyContent: 'space-between' }}>
-                <View style={{ flex: 1, alignItems: "center", justifyContent: 'space-between' }}>
-                    <Text style={{ fontSize: 40, fontWeight: '700' }}>{order.token}</Text>
+                <View style={{ flex: 2, alignItems: "center", justifyContent: 'space-between' }}>
+                    <Text style={{ fontSize: 30, fontWeight: '700' }}>{order.token}</Text>
                     <Text style={styles.time}>{`${orderTime} `}</Text>
-                    <Text style={{ fontSize: 18, fontWeight: '900', color: "green" }}>{`Rs ${order.total_price} `}</Text>
+                    <Text style={{ fontSize: 15, fontWeight: '900', color: "green" }}>{`Rs ${order.total_price} `}</Text>
                 </View>
                 <View
                     style={{
@@ -26,10 +31,11 @@ const Order = ({ order, addItem, complete }) => {
                 <ScrollView style={{ marginLeft: 20, maxHeight: 100 }}>
                     {
                         order.items.map((item, key) => {
+                            let dataItem = data.find((dataItem) => dataItem.id === item.id);
                             return (
                                 <View key={key} style={styles.foodItem}>
-                                    <Text style={{ fontSize: 17, fontWeight: '500' }}>{data[item.id - 1].Name}</Text>
-                                    <Text style={{ fontSize: 17, fontWeight: '500' }}>{item.quantity} </Text>
+                                    <Text style={{ fontSize: 10, fontWeight: '500' }}>{dataItem?.Name}</Text>
+                                    <Text style={{ fontSize: 10, fontWeight: '500' }}>{item?.quantity} </Text>
                                 </View>
                             )
                         })
@@ -47,14 +53,16 @@ const Order = ({ order, addItem, complete }) => {
                         )
                     }
                     {
-                        (order.newItems) && (
-                            order.newItems?.map((item, key) => (
-                                <View key={key} style={styles.foodItem}>
-                                    <Text style={{ fontSize: 17, fontWeight: '500' }}>{data[item.id - 1].Name}</Text>
-                                    <Text style={{ fontSize: 20, fontWeight: '500' }}>{item.quantity} </Text>
-                                </View>
-                            )
-                            ))
+                        (order.newItems) ?
+                            (order.newItems?.map((item, key) => {
+                                let dataItem = data.find((dataItem) => dataItem.id === item.id);
+                                return (
+                                    <View key={key} style={styles.foodItem}>
+                                        <Text style={{ fontSize: 10, fontWeight: '500' }}>{dataItem?.Name}</Text>
+                                        <Text style={{ fontSize: 10, fontWeight: '500' }}>{item.quantity} </Text>
+                                    </View>
+                                )
+                            })) : null
                     }
 
                 </ScrollView>
@@ -77,7 +85,8 @@ const styles = StyleSheet.create({
     },
     time: {
         fontWeight: "500",
-        fontSize: 15,
+        fontSize: 12,
+        marginVertical: 5,
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -89,8 +98,7 @@ const styles = StyleSheet.create({
         color: 'white',
         paddingHorizontal: 10,
         borderRadius: 30,
-        paddingVertical: 10,
-        width: '40%',
+        paddingVertical: 5,
         alignItems: 'center',
 
     },

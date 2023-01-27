@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
-import data from '../FoodItems.json';
+import data from '../DataFiles/FoodItems.json';
 import OrderItem from "../components/CreateOrder/OrderItem";
 import TitleBar from '../components/TitleBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import FetchMenu from '../utils/FetchMenu';
 const CreateOrder = ({ navigation }) => {
+
     const [orderitems, setorderitems] = useState([{ id: 1, quantity: 0 }])
     const [totalPrice, settotalPrice] = useState(0);
     const [token, settoken] = useState(0)
@@ -12,11 +14,14 @@ const CreateOrder = ({ navigation }) => {
     const [phone, setphone] = useState();
     useEffect(() => {
         let price = orderitems.reduce((total, item) => {
-            return total + item.quantity * data[item.id - 1].Price
+            let menuItem = data.find((ite) => ite.id === item.id)
+            // return total + item.quantity * data[item.id - 1].Price
+            return total + item.quantity * menuItem.Price
         }, 0)
         settotalPrice(price)
         console.log(totalPrice)
     }, [orderitems])
+
 
     const CreateOrder = async () => {
         // token ? console.log('token') : alert('Enter Token Number')
@@ -26,7 +31,7 @@ const CreateOrder = ({ navigation }) => {
         let date = new Date();
         let today = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
         let prevOrders = JSON.parse(await AsyncStorage.getItem(`orders ${today}`)) || {};
-        let duplicate = prevOrders?.orders?.find((order) => order.token === token)
+        let duplicate = prevOrders?.orders?.find((order) => order.token === token && order.status === 'Pending')
         if (duplicate) {
             return alert('Order Already Placed for this token number: ' + token)
         }
@@ -57,6 +62,10 @@ const CreateOrder = ({ navigation }) => {
         prevOrders.orders.push(neworder);
         await AsyncStorage.setItem(`orders ${today}`, JSON.stringify(prevOrders));
         alert('Order Placed');
+        setorderitems([{ id: 1, quantity: 0 }]);
+        setname('');
+        setphone('');
+        settoken(0);
         navigation.navigate('Home')
 
     }
@@ -76,7 +85,7 @@ const CreateOrder = ({ navigation }) => {
             </View>
             <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ fontSize: 20, fontWeight: "600" }}>
+                    <Text style={{ fontSize: 15, fontWeight: "600" }}>
                         Name:
                     </Text>
                     <TextInput
@@ -88,7 +97,7 @@ const CreateOrder = ({ navigation }) => {
 
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 20, width: '40%' }}>
-                    <Text style={{ fontSize: 20, fontWeight: "600" }}>
+                    <Text style={{ fontSize: 15, fontWeight: "600" }}>
                         Phone:
                     </Text>
                     <TextInput
@@ -100,7 +109,7 @@ const CreateOrder = ({ navigation }) => {
                     />
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 20, width: '32%' }}>
-                    <Text style={{ fontSize: 20, fontWeight: "600" }}>
+                    <Text style={{ fontSize: 15, fontWeight: "600" }}>
                         Token Number:
                     </Text>
                     <TextInput
@@ -113,7 +122,7 @@ const CreateOrder = ({ navigation }) => {
                 </View>
             </View>
             <View style={styles.orderButtonContainer}>
-                <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Total Price :
+                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Total Price :
                     <Text style={{ color: 'green' }}>
                         {` Rs. ${totalPrice} /-`}
                     </Text>
@@ -121,7 +130,7 @@ const CreateOrder = ({ navigation }) => {
                 <Pressable
                     onPress={CreateOrder}
                     style={({ pressed }) => [{ backgroundColor: pressed ? 'lime' : 'green', }, styles.button]}>
-                    <Text style={{ color: 'white', fontWeight: '800', fontSize: 20 }}>
+                    <Text style={{ color: 'white', fontWeight: '800', fontSize: 15 }}>
                         Place Order
                     </Text>
                 </Pressable>
@@ -158,8 +167,8 @@ const styles = StyleSheet.create({
         color: 'white',
         paddingHorizontal: 30,
         borderRadius: 30,
-        paddingVertical: 20,
-        width: '40%',
+        paddingVertical: 5,
+        // width: '40%',
         alignItems: 'center',
 
     },

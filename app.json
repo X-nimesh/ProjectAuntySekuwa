@@ -11,6 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -33,6 +34,14 @@
       "eas": {
         "projectId": "655d5570-4356-4f38-966b-39b36c73356f"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ]
   }
 }

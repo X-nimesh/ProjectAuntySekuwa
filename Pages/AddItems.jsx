@@ -2,26 +2,52 @@ import React, { useEffect, useState } from 'react'
 import { Button, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import OrderItem from '../components/CreateOrder/OrderItem';
 import TitleBar from '../components/TitleBar';
-import data from '../FoodItems.json';
+// import data from '../FoodItems.json';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import FetchMenu from '../utils/FetchMenu';
 
 const AddItems = ({ navigation, route }) => {
+
+    // useFocusEffect(
+    //     React.useCallback(() => {
+    //         getMenu();
+    //     }, [])
+    // );
+
     const { id } = route.params;
     let date = new Date();
     let today = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     const [orderitems, setorderitems] = useState([{ id: 1, quantity: 0 }])
+    const [prevNewItems, setprevNewItems] = useState([])
     const [totalPrice, settotalPrice] = useState(0);
+    const [prevTotalP, setprevTotalP] = useState(0);
     const [prvOrders, setprvOrders] = useState();
     const [prevAll, setprevAll] = useState();
-    const [indexOrder, setindexOrder] = useState()
+    const [indexOrder, setindexOrder] = useState();
+    const [data, setdata] = useState([])
+
+    const getMenu = async () => {
+        let items = JSON.parse(await AsyncStorage.getItem(`menu`)) || [];
+        setdata(items);
+        let price = orderitems.reduce((total, item) => {
+            let menuItem = items.find((ite) => ite.id === item.id)
+            // return total + item.quantity * data[item.id - 1].Price
+            return total + item.quantity * menuItem?.Price
+        }, 0)
+        settotalPrice(price)
+    }
     useEffect(() => {
         let price = orderitems.reduce((total, item) => {
-            return total + item.quantity * data[item.id - 1].Price
+            let menuItem = data.find((ite) => ite.id === item.id)
+            // return total + item.quantity * data[item.id - 1].Price
+            return total + item.quantity * menuItem?.Price
         }, 0)
+        console.log(price)
         settotalPrice(price)
         console.log(totalPrice)
     }, [orderitems])
+
     const getorder = async () => {
         let Orders = await AsyncStorage.getItem(`orders ${today}`);
         Orders = JSON.parse(Orders)
@@ -29,12 +55,16 @@ const AddItems = ({ navigation, route }) => {
         let filtered = Orders.orders?.find((order) => order.token === id);
         let indexofOrder = Orders.orders?.findIndex((order) => order.token === id);
         setindexOrder(indexofOrder);
+
+        console.log(filtered)
+        // setprevNewItems(Orders.orders[indexofOrder].newItems);
         setprvOrders(filtered);
     }
 
     useFocusEffect(
         React.useCallback(() => {
             getorder();
+            getMenu();
         }, [])
     );
     const addProduct = async () => {
@@ -45,7 +75,21 @@ const AddItems = ({ navigation, route }) => {
         console.log("id: " + id)
         // let Orders = JSON.parse(await AsyncStorage.getItem(`orders ${today}`)) || {};
         let order = { ...prvOrders };
-        order.newItems = [...FilteredItems];
+        order.newItems?.filter((item) => {
+            let index = FilteredItems.findIndex((ite) => ite.id === item.id);
+            if (index !== -1) {
+                item.quantity = item.quantity + FilteredItems[index].quantity;
+                FilteredItems.splice(index, 1);
+            }
+        })
+        if (order.newItems) {
+
+            order.newItems = [...order.newItems, ...FilteredItems];
+        }
+        else {
+            console.log(order.newItems)
+            order.newItems = [...FilteredItems];
+        }
         order.total_price = order.total_price + totalPrice;
         let prevAllOrder = { ...prevAll };
         // console.log(order);
@@ -59,6 +103,7 @@ const AddItems = ({ navigation, route }) => {
         await AsyncStorage.setItem(`orders ${today}`, JSON.stringify(prevAllOrder));
         navigation.navigate('Home');
     }
+    console.log(prevNewItems);
     return (
         <ScrollView style={styles.container}>
             <TitleBar title={`Add Item in order: ${id} `} />

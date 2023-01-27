@@ -1,9 +1,12 @@
-import React from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import data from '../../FoodItems.json';
 import { DataTable } from 'react-native-paper';
+import FetchMenu from '../../utils/FetchMenu';
 
-const ColdDrinks = () => {
+const ColdDrinks = ({ data }) => {
+
+
     let Food = data.filter((item) => item.category === 'Drinks');
 
     return (
@@ -15,7 +18,6 @@ const ColdDrinks = () => {
             <DataTable>
 
                 {Food.map((item, key) => {
-                    console.log(item);
                     return (
                         <DataTable.Row style={{ borderBottomWidth: 0 }} key={key}>
                             <DataTable.Cell ><Text style={styles.title}>{item.Name}{item.id === 6 ? ' per plate' : ' per pcs'}</Text></DataTable.Cell>
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     heading: {
-        fontSize: 30,
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#CC9C00',
         // textDecorationLine: 'underline',
@@ -58,12 +60,12 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 25,
+        fontSize: 20,
         fontWeight: 'bold',
         color: 'black',
     },
     price: {
-        fontSize: 25,
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#279600',
     }

@@ -34,17 +34,17 @@ const OrderItem = ({ menuItem, orderItems, setorderitems }) => {
             {/* <View> */}
             <View style={styles.quantity}>
                 <Pressable onPress={addQuantity}>
-                    <Icons name="plus-square" size={35} color="black" />
+                    <Icons name="plus-square" size={25} color="black" />
                 </Pressable>
                 <Text style={{
-                    fontSize: 30
-                    // , marginHorizontal: 30
+                    fontSize: 30,
+                    // marginHorizontal: 10
                 }}>
                     {/* {orderItems[menuItem.id]} */}
                     {itemIndex === -1 ? 0 : orderItems[itemIndex].quantity}
                 </Text>
                 <Pressable onPress={removeQuantity}>
-                    <Icons name="minus-square" size={35} color="black" />
+                    <Icons name="minus-square" size={25} color="black" />
                 </Pressable>
             </View>
             {/* </View> */}
@@ -56,19 +56,19 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     quantity: {
-        width: '30%',
-        marginVertical: 10,
+        width: '40%',
+        marginVertical: 5,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
     },
     itemName: {
-        fontSize: 24,
+        fontSize: 19,
         fontWeight: 'bold',
         marginBottom: 10
     },
     itemPrice: {
-        fontSize: 20,
+        fontSize: 16,
         color: 'green',
         fontWeight: 'bold',
         marginBottom: 10

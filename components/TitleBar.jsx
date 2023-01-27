@@ -8,10 +8,10 @@ const TitleBar = ({ title }) => {
 }
 const styles = StyleSheet.create({
     title: {
-        fontSize: 40,
+        fontSize: 30,
         fontWeight: 'bold',
         color: '#CC9C00',
-        marginTop: 100,
+        marginTop: 50,
     },
 })
 export default TitleBar
