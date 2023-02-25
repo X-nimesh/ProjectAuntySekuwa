@@ -16,6 +16,8 @@ import Settings from './Pages/Settings';
 import EditPayment from './Pages/EditPayment';
 import data from './DataFiles/FoodItems.json';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import EditMenuItem from './Pages/Menu/EditMenuItem';
+import AddMenuItems from './Pages/Menu/AddMenuItems';
 
 export default function App() {
     const menuSave = async () => {
@@ -50,6 +52,8 @@ export default function App() {
                     <Stack.Screen name="Sales" component={Sales} />
                     <Stack.Screen name="Setting" component={Settings} />
                     <Stack.Screen name="EditPayment" component={EditPayment} />
+                    <Stack.Screen name="EditItems" component={EditMenuItem} />
+                    <Stack.Screen name="AddMenuItems" component={AddMenuItems} />
                 </Stack.Navigator>
             </View>
         </NavigationContainer>

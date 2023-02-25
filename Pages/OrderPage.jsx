@@ -23,6 +23,9 @@ const OrderPage = ({ navigation }) => {
             getOrders();
         }, [])
     );
+    const addItems = (id) => {
+        navigation.navigate('AddItem', { id: id });
+    }
     const orderDetail = (order) => {
         navigation.navigate('OrderDetail', { order })
     }
@@ -33,12 +36,19 @@ const OrderPage = ({ navigation }) => {
                 <ScrollView >
                     <View style={styles.ordersContainer}>
                         {completedOrders?.map((order, key) => {
-                            console.log(order)
                             return (
                                 <Pressable key={key} style={styles.order} onPress={() => orderDetail(order)}>
-                                    <Text style={{ fontSize: 35, fontWeight: '600' }}>{order.token}</Text>
+                                    <Text style={{ fontSize: 35, fontWeight: '800' }}>{order.token}</Text>
                                     <Text style={{ fontSize: 20 }}>Name: {order.name?.toUpperCase()}</Text>
                                     <Text style={{ fontSize: 20, fontWeight: '600' }}>Rs. {order.total_price}/-</Text>
+                                    <Pressable
+                                        style={{ backgroundColor: 'green', padding: 10, paddingHorizontal: 40, borderRadius: 10, marginTop: 10 }}
+                                        onPress={() => {
+                                            addItems(order.token)
+                                        }}>
+                                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Add Items</Text>
+                                    </Pressable>
+
                                     {/* <Text>Status:{order.status}</Text> */}
                                 </Pressable>
                             )
@@ -58,15 +68,15 @@ const styles = StyleSheet.create({
     },
     ordersContainer: {
         width: '100%',
-
         padding: 20,
+        paddingHorizontal: 0,
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
     order: {
         backgroundColor: '#ccffff',
         alignItems: 'center',
-        width: '45%',
+        width: '40%',
         padding: 20,
         marginVertical: 5,
         elevation: 5,

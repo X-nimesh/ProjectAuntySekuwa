@@ -91,6 +91,8 @@ const AddItems = ({ navigation, route }) => {
             order.newItems = [...FilteredItems];
         }
         order.total_price = order.total_price + totalPrice;
+        order.status = "Pending"
+        console.log(order);
         let prevAllOrder = { ...prevAll };
         // console.log(order);
         // console.log(indexOrder)
@@ -99,7 +101,6 @@ const AddItems = ({ navigation, route }) => {
         // let newOrder=[...prevAll.orders,order]
         // let newAll = { ...prevAll, orders: [...prevAll.orders, order] }
         // console.log(prevAllOrder.orders)
-        // return
         await AsyncStorage.setItem(`orders ${today}`, JSON.stringify(prevAllOrder));
         navigation.navigate('Home');
     }

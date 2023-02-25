@@ -24,7 +24,8 @@ const CreateOrder = ({ navigation }) => {
 
 
     const CreateOrder = async () => {
-        // token ? console.log('token') : alert('Enter Token Number')
+        token ? console.log('token') : alert('Enter Token Number')
+
         if (!token) {
             return alert('Enter Token Number')
         }
@@ -115,6 +116,7 @@ const CreateOrder = ({ navigation }) => {
                     <TextInput
                         style={[styles.input, { width: '100%' }]}
                         onChangeText={(text) => settoken(parseInt(text))}
+
                         value={token}
                         placeholder="Token Number"
                         keyboardType="numeric"

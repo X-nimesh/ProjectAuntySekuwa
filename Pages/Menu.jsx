@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, Pressable } from 'react-native'
 import ColdDrinks from '../components/MenuItems/ColdDrinks'
 import OtherItems from '../components/MenuItems/OtherItems'
 import Sekuwa from '../components/MenuItems/Sekuwa'
@@ -21,7 +21,31 @@ const Menu = ({ navigation }) => {
     return (
         <ScrollView >
             <View style={styles.container}>
-                <TitleBar title={'Menu'} />
+                <View style={{ width: "100%", flexDirection: "row", alignItems: "flex-end" }}>
+                    <TitleBar title={'Menu'} />
+                    <Pressable onPress={() => navigation.navigate('AddMenuItems')}
+                        style={{
+                            backgroundColor: 'green',
+                            padding: 10,
+                            borderRadius: 10,
+                            marginLeft: 'auto',
+                            paddingHorizontal: 20,
+                        }}
+                    >
+                        <Text style={{ color: "white", fontWeight: "500" }}>Add Items</Text>
+                    </Pressable>
+                    <Pressable onPress={() => navigation.navigate('EditItems')}
+                        style={{
+                            backgroundColor: 'green',
+                            padding: 10,
+                            paddingHorizontal: 20,
+                            borderRadius: 10,
+                            marginLeft: 20,
+                        }}
+                    >
+                        <Text style={{ color: "white", fontWeight: "500" }}>Edit Item</Text>
+                    </Pressable>
+                </View>
                 <Sekuwa data={data} />
                 <OtherItems data={data} />
                 <ColdDrinks data={data} />
